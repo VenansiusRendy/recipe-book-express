@@ -1,0 +1,50 @@
+<%- include('../partials/header.ejs', {title: 'Add Menu'}) %>
+<div class="mt-4" style="width: 80vw; margin: 0 auto">
+    <a class="btn btn-outline-primary" href="/menus" role="button"
+        >Menus</a
+    >
+    <form method="POST" action="/menus/add">
+        <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label"
+                >Name</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="category" class="col-sm-2 col-form-label"
+                >Category</label
+            >
+            <div class="col-sm-10">
+                <select class="form-select" aria-label="category" name="category">
+                    <option selected>Select Category</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="brunch">Brunch</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="uom" class="col-sm-2 col-form-label"
+                >UOM</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="uom" name="uom"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="instructions" class="col-sm-2 col-form-label"
+                >Instructions</label
+            >
+            <div class="col-sm-10">
+                <textarea class="form-control" placeholder="How to cook it?" id="instructions" name="instructions"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
+
+<%- include('../partials/footer.ejs') %>

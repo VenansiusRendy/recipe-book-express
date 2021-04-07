@@ -1,0 +1,50 @@
+<%- include('../partials/header.ejs', {title: 'Edit Menu'}) %>
+<div class="mt-4" style="width: 80vw; margin: 0 auto">
+    <a class="btn btn-outline-primary" href="/menus" role="button"
+        >Menus</a
+    >
+    <form method="POST" action="/menus/<%= menu.id %>/edit">
+        <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label"
+                >Name</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name" value="<%= menu.name %>"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="category" class="col-sm-2 col-form-label"
+                >Category</label
+            >
+            <div class="col-sm-10">
+                <select class="form-select" aria-label="category" name="category">
+                    <option>Select Category</option>
+                    <option value="breakfast" <%= menu.category === "breakfast" ? "selected" : "" %>>Breakfast</option>
+                    <option value="lunch" <%= menu.category === "lunch" ? "selected" : "" %>>Lunch</option>
+                    <option value="dinner" <%= menu.category === "dinner" ? "selected" : "" %>>Dinner</option>
+                    <option value="brunch" <%= menu.category === "brunch" ? "selected" : "" %>>Brunch</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="uom" class="col-sm-2 col-form-label"
+                >UOM</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="uom" name="uom" value="<%= menu.uom %>"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="instructions" class="col-sm-2 col-form-label"
+                >Instructions</label
+            >
+            <div class="col-sm-10">
+                <textarea class="form-control" placeholder="How to cook it?" id="instructions" name="instructions"><%= menu.instructions %></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Edit</button>
+    </form>
+</div>
+
+<%- include('../partials/footer.ejs') %>

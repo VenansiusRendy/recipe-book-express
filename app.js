@@ -4,7 +4,8 @@ const port = 3000;
 const router = require('./routes');
 
 app.set('view engine', 'ejs');
-app.set(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/ressources'));
 app.use(router);
 
 app.listen(port, (err => {

@@ -1,0 +1,33 @@
+<%- include('../partials/header.ejs', {title: 'Ingredients'}) %>
+<div class="mt-4" style="width: 80vw; margin: 0 auto;">
+    <a class="btn btn-outline-primary" href="/ingredients/add" role="button">Add Ingredient</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">UOM</th>
+                <th scope="col">Supplier</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% ingredients.forEach(ingredient => { %>
+            <tr>
+                <th scope="row"><%= ingredient.id %></th>
+                <td><%= ingredient.name %></td>
+                <td><%= ingredient.price %></td>
+                <td><%= ingredient.uom  %></td>
+                <td><%= ingredient.Supplier ? ingredient.Supplier.name : 'Belum Ada'%></td>
+                <td>
+                    <a class="btn btn-outline-warning" href="/ingredients/<%= ingredient.id %>/edit" role="button">Edit</a>
+                    <a class="btn btn-outline-danger" href="/ingredients/<%= ingredient.id %>/delete" role="button">Delete</a>
+                </td>
+            </tr>
+            <% }) %> 
+        </tbody>
+    </table>
+</div>
+        
+<%- include('../partials/footer.ejs') %>

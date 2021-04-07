@@ -1,0 +1,73 @@
+<%- include('../partials/header.ejs', {title: 'Menu Details'}) %>
+<div class="mt-4 container" style="width: 80vw; margin: 0 auto">
+    <a class="btn btn-outline-primary" href="/menus" role="button"
+    >Menus</a
+    >
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="first-lead"><%= menu.name.toUpperCase() %><small class="badge bg-primary"><%= menu.category.toUpperCase() %></small></h1>
+            <h4 class="second-lead">Serving Per <%= menu.uom %></h4>
+            <h4 class="second-lead">Instructions: </h4>
+            <p class="lead"><%= menu.instructions %></p>
+        </div>
+        <div class="col-sm-6">
+            <form method="POST" action="/menus/<%= menu.id %>/ingredients">
+                <div class="row mb-3">
+                    <label for="ingredient_id" class="col-sm-2 col-form-label"
+                        >Ingredient</label
+                    >
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="ingredient_id" name="ingredient_id">
+                            <option selected>Select Ingredient</option>
+                            <% ingredients.forEach(ingredient => { %>
+                                <option value="<%= ingredient.id %>"><%= ingredient.name.toUpperCase() %>(<%= ingredient.price %>/<%= ingredient.uom %>)</option>
+                            <% }) %> 
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="qty" class="col-sm-2 col-form-label"
+                        >Qty</label
+                    >
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="qty" name="qty"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <h1 class="second-lead">Ingredients</h1>
+        <button class="pdfBtn btn btn-outline-primary">PDF</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">UOM</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% menu_ingredients.forEach(menu_ingredient => { %>
+                <tr>
+                    <th scope="row"><%= menu_ingredient.Ingredient.name %></th>
+                    <td><%= menu_ingredient.qty %></td>
+                    <td><%= menu_ingredient.Ingredient.uom %></td>
+                    <td><%= menu_ingredient.Ingredient.price  %></td>
+                    <td><%= +menu_ingredient.Ingredient.price * +menu_ingredient.qty %> </td>
+                    <td>
+                        <a class="btn btn-outline-danger" href="/menus/<%=menu.id%>/ingredients/<%= menu_ingredient.id %>/delete" role="button">Delete</a>
+                    </td>
+                </tr>
+                <% }) %> 
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="../../resources/jspdf.js" type="text/javascript"></script>
+<%- include('../partials/footer.ejs') %>

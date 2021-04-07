@@ -1,0 +1,48 @@
+<%- include('../partials/header.ejs', {title: 'Edit Ingredient'}) %>
+<div class="mt-4" style="width: 80vw; margin: 0 auto">
+    <a class="btn btn-outline-primary" href="/ingredients" role="button"
+        >Ingredients</a
+    >
+    <form method="POST" action="/ingredients/<%= ingredient.id %>/edit">
+        <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label"
+                >Name</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name" value="<%= ingredient.name %>"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="price" class="col-sm-2 col-form-label"
+                >Price</label
+            >
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="price" name="price" value="<%= +ingredient.price %>"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="uom" class="col-sm-2 col-form-label"
+                >UOM</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="uom" name="uom" value="<%= ingredient.uom %>"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="supplier_id" class="col-sm-2 col-form-label"
+                >Supplier</label
+            >
+            <div class="col-sm-10">
+                <select class="form-select" aria-label="Default select example" name="supplier_id">
+                    <option selected>Select Supplier</option>
+                    <% suppliers.forEach(supplier => { %>
+                        <option value="<%= supplier.id%>" <%= +ingredient.supplier_id === +supplier.id ? "checked" : null %>><%= supplier.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-warning">Edit</button>
+    </form>
+</div>
+
+<%- include('../partials/footer.ejs') %>

@@ -1,0 +1,36 @@
+<%- include('../partials/header.ejs', {title: 'Add Ingredient'}) %>
+<div class="mt-4" style="width: 80vw; margin: 0 auto">
+    <a class="btn btn-outline-primary" href="/suppliers" role="button"
+        >Suppliers</a
+    >
+    <form method="POST" action="/suppliers/add">
+        <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label"
+                >Name</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="address" class="col-sm-2 col-form-label"
+                >Address</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="address" name="address"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="phone_number" class="col-sm-2 col-form-label"
+                >Phone Number</label
+            >
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="phone_number" name="phone_number"/>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
+
+<%- include('../partials/footer.ejs') %>
