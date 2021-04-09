@@ -2,8 +2,8 @@ const authorizationMiddleware = (req, res, next) => {
     if(req.session.role === 'chef'){
         next()
     }else{
-        let notif = `Only Chef Can Add Menu`;
-        res.redirect(`/menus/?notif=${notif}`);
+        let notif = `Only Chef Can Add/Edit/Delete Menu`;
+        res.redirect(`?notif=${notif}`);
     }
 }
 
