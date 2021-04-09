@@ -3,7 +3,7 @@ const authorizationMiddleware = (req, res, next) => {
         next()
     }else{
         let notif = `Only Chef Can Add/Edit/Delete Menu`;
-        res.redirect(`?notif=${notif}`);
+        res.redirect(`/menus?notif=${notif}`);
     }
 }
 
