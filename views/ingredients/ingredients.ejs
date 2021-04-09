@@ -1,10 +1,10 @@
-<%- include('../partials/header.ejs', {title: 'Ingredients'}) %>
+<%- include('../partials/header.ejs', {title: 'Ingredients', currentPage: 'Ingredients'}) %>
 <div class="mt-4" style="width: 80vw; margin: 0 auto;">
     <a class="btn btn-outline-primary" href="/ingredients/add" role="button">Add Ingredient</a>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col">No</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">UOM</th>
@@ -13,9 +13,9 @@
             </tr>
         </thead>
         <tbody>
-            <% ingredients.forEach(ingredient => { %>
+            <% ingredients.forEach((ingredient, i) => { %>
             <tr>
-                <th scope="row"><%= ingredient.id %></th>
+                <th scope="row"><%= i + 1 %></th>
                 <td><%= ingredient.name %></td>
                 <td><%= ingredient.price %></td>
                 <td><%= ingredient.uom  %></td>

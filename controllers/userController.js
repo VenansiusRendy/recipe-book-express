@@ -2,7 +2,19 @@ const { User } = require("../models");
 const bcrypt = require("bcryptjs");
 class UserController {
     static addForm(req, res) {
-        res.render("users/addUser.ejs");
+        res.render("users/addUser.ejs", {notif: ""});
+    }
+    static read(req, res){
+        const {notif} = req.query;
+        User.findAll()
+        .then(users => res.render('users/users.ejs', {users, notif}))
+        .catch(err => res.send(err));
+    }
+    static delete(req, res){
+        const {id} = req.params;
+        User.destroy({where: {id: +id}})
+        .then(users => res.redirect('/users/?notif=User berhasil di delete'))
+        .catch(err => res.send(err));
     }
     static add(req, res) {
         const { email, password, name, role } = req.body;
@@ -12,11 +24,11 @@ class UserController {
             name,
             role,
         })
-            .then((result) => res.redirect("/users/login"))
+            .then((result) => res.redirect("/users/?notif=User berhasil di tambah"))
             .catch((err) => res.send(err));
     }
     static loginForm(req, res) {
-        res.render("users/loginUser.ejs");
+        res.render("users/loginUser.ejs", { notif:"" });
     }
     static login(req, res) {
         const { email, password } = req.body;
@@ -27,7 +39,11 @@ class UserController {
                     if (compare) {
                         req.session.userId = result.id;
                         req.session.role = result.role;
-                        res.redirect('/menus')
+                        if(result.role === 'admin'){
+                            res.redirect('/users')
+                        }else{
+                            res.redirect('/menus')
+                        }
                     } else {
                         let err = new Error(
                             "Email atau password tidak ditemukan"

@@ -1,22 +1,24 @@
-<%- include('../partials/header.ejs', {title: 'Menu Details'}) %>
+<%- include('../partials/header.ejs', {title: 'Menu Details', currentPage: 'Menus'}) %>
 <div class="mt-4 container" style="width: 80vw; margin: 0 auto">
-    <a class="btn btn-outline-primary" href="/menus" role="button"
-    >Menus</a
-    >
     <div class="row">
         <div class="col-sm-6">
-            <h1 class="first-lead"><%= menu.name.toUpperCase() %><small class="badge bg-primary"><%= menu.category.toUpperCase() %></small></h1>
-            <h4 class="second-lead">Serving Per <%= menu.uom %></h4>
-            <h4 class="second-lead">Instructions: </h4>
-            <p class="lead"><%= menu.instructions %></p>
+            <div class="card" style="width: 100%; border: none;">
+                <div class="card-body">
+                    <h1 class="card-title"><%= menu.name.toUpperCase() %></h1>
+                    <small class="badge bg-primary"><%= menu.category.toUpperCase() %></small>
+                    <small class="badge bg-warning">Serving Per <%= menu.uom %></small>
+                    <p class="card-text">Instructions:</p>
+                    <p class="card-text"><%= menu.instructions %></p>
+                </div>
+            </div>
         </div>
         <div class="col-sm-6">
             <form method="POST" action="/menus/<%= menu.id %>/ingredients">
                 <div class="row mb-3">
-                    <label for="ingredient_id" class="col-sm-2 col-form-label"
+                    <label for="ingredient_id" class="col-sm-3 col-form-label"
                         >Ingredient</label
                     >
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <select class="form-select" aria-label="ingredient_id" name="ingredient_id">
                             <option selected>Select Ingredient</option>
                             <% ingredients.forEach(ingredient => { %>
@@ -26,10 +28,10 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="qty" class="col-sm-2 col-form-label"
+                    <label for="qty" class="col-sm-3 col-form-label"
                         >Qty</label
                     >
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <input type="number" class="form-control" id="qty" name="qty"/>
                     </div>
                 </div>
@@ -39,8 +41,8 @@
     </div>
     <div class="col-sm-12">
         <h1 class="second-lead">Ingredients</h1>
-        <button class="pdfBtn btn btn-outline-primary">PDF</button>
-        <table class="table">
+        <a class="btn btn-outline-success" href="/menus/<%=menu.id%>/ingredients/download" role="button">PDF</a>
+        <table class="table" id="table">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -54,20 +56,25 @@
             <tbody>
                 <% menu_ingredients.forEach(menu_ingredient => { %>
                 <tr>
-                    <th scope="row"><%= menu_ingredient.Ingredient.name %></th>
-                    <td><%= menu_ingredient.qty %></td>
+                    <th scope="row"><%= menu_ingredient.Ingredient.name.toUpperCase() %></th>
+                    <td><%= thousands(+menu_ingredient.qty) %></td>
                     <td><%= menu_ingredient.Ingredient.uom %></td>
-                    <td><%= menu_ingredient.Ingredient.price  %></td>
-                    <td><%= +menu_ingredient.Ingredient.price * +menu_ingredient.qty %> </td>
+                    <td><%= thousands(menu_ingredient.Ingredient.price)  %></td>
+                    <td><%= thousands(menu_ingredient.subtotal) %> </td>
                     <td>
                         <a class="btn btn-outline-danger" href="/menus/<%=menu.id%>/ingredients/<%= menu_ingredient.id %>/delete" role="button">Delete</a>
                     </td>
                 </tr>
                 <% }) %> 
+                <tr>
+                    <th scope="row">Total Cost</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><b><%= thousands(menu.cost) %></b></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
-
-
-    <script src="../../resources/jspdf.js" type="text/javascript"></script>
 <%- include('../partials/footer.ejs') %>

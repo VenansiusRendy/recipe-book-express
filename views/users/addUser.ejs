@@ -1,8 +1,5 @@
-<%- include('../partials/header.ejs', {title: 'Add Menu'}) %>
+<%- include('../partials/header.ejs', {title: 'Users'}) %>
 <div class="mt-4" style="width: 80vw; margin: 0 auto">
-    <a class="btn btn-outline-primary" href="/menus" role="button"
-        >Menus</a
-    >
     <form method="POST" action="/users/add">
         <div class="row mb-3">
             <label for="email" class="col-sm-2 col-form-label"
@@ -35,6 +32,7 @@
             <div class="col-sm-10">
                 <select class="form-select" aria-label="role" name="role">
                     <option selected>Select Role</option>
+                    <option value="admin">Admin</option>
                     <option value="chef">Chef</option>
                     <option value="cook">Cook</option>
                 </select>

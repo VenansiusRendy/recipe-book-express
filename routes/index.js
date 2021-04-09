@@ -6,10 +6,10 @@ const userRoutes = require('./users');
 const authMiddleware = require('../helpers/authMiddleware');
 
 router.get('/', (req, res) => {
-    res.send('Hello World')
+    res.redirect('/users/login')
 })
-router.use('/ingredients', ingredientsRoutes);
-router.use('/suppliers', suppliersRoutes);
+router.use('/ingredients', authMiddleware, ingredientsRoutes);
+router.use('/suppliers',authMiddleware, suppliersRoutes);
 router.use('/menus', authMiddleware, menuRoutes);
 router.use('/users', userRoutes);
 

@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    get subtotal(){
+      return this.qty * this.Ingredient.price;
+    }
     static associate(models) {
       Menu_Ingredient.belongsTo(models.Menu, {
         foreignKey: 'menu_id'
@@ -20,9 +23,14 @@ module.exports = (sequelize, DataTypes) => {
   };
   Menu_Ingredient.init({
     menu_id: DataTypes.INTEGER,
-    ingredient_id: DataTypes.INTEGER,
+    ingredient_id: {
+      type: DataTypes.INTEGER
+    },
     qty: DataTypes.DECIMAL
   }, {
+    hooks: {
+
+    },
     sequelize,
     modelName: 'Menu_Ingredient',
   });

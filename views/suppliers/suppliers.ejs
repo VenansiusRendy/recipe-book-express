@@ -1,10 +1,10 @@
-<%- include('../partials/header.ejs', {title: 'Suppliers'}) %>
+<%- include('../partials/header.ejs', {title: 'Suppliers', currentPage: 'Suppliers'}) %>
 <div class="mt-4" style="width: 80vw; margin: 0 auto;">
     <a class="btn btn-outline-primary" href="/suppliers/add" role="button">Add Supplier</a>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col">No</th>
                 <th scope="col">Name</th>
                 <th scope="col">Address</th>
                 <th scope="col">Phone Number</th>
@@ -12,9 +12,9 @@
             </tr>
         </thead>
         <tbody>
-            <% suppliers.forEach(supplier => { %>
+            <% suppliers.forEach((supplier, i) => { %>
             <tr>
-                <th scope="row"><%= supplier.id %></th>
+                <th scope="row"><%= i + 1%></th>
                 <td><%= supplier.name %></td>
                 <td><%= supplier.address %></td>
                 <td><%= supplier.phone_number  %></td>

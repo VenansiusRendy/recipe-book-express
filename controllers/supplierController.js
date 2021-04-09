@@ -2,11 +2,11 @@ const { Supplier } = require("../models");
 class SupplierController {
     static read(req, res){
         Supplier.findAll()
-        .then(suppliers => res.render('suppliers/suppliers.ejs', {suppliers}))
+        .then(suppliers => res.render('suppliers/suppliers.ejs', {suppliers, notif:""}))
         .catch(err => res.send(err));
     }
     static addForm(req, res){
-        res.render('suppliers/addSupplier.ejs')
+        res.render('suppliers/addSupplier.ejs', {notif:""})
     }
     static add(req, res){
         const { name, address, phone_number } = req.body;
@@ -26,7 +26,7 @@ class SupplierController {
                 id: +id
             }
         })
-        .then(supplier => res.render('suppliers/editSupplier.ejs', {supplier}))
+        .then(supplier => res.render('suppliers/editSupplier.ejs', {supplier, notif:""}))
         .catch(err => res.send(err));
     }
     static edit(req, res){

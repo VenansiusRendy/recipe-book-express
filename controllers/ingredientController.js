@@ -1,3 +1,4 @@
+const thousands = require("../helpers/thousands");
 const { Ingredient, Supplier } = require("../models");
 
 class IngredientController {
@@ -5,12 +6,12 @@ class IngredientController {
         Ingredient.findAll({
             include: Supplier
         })
-        .then(ingredients => res.render('ingredients/ingredients.ejs', {ingredients}))
+        .then(ingredients => res.render('ingredients/ingredients.ejs', {ingredients, notif:"", thousands}))
         .catch(err => res.send(err));
     }
     static addForm(req, res){
         Supplier.findAll()
-        .then(suppliers => res.render('ingredients/addIngredient.ejs', {suppliers}))
+        .then(suppliers => res.render('ingredients/addIngredient.ejs', {suppliers, notif:""}))
         .catch(err => res.send(err));
     }
     static add(req, res){
@@ -37,7 +38,7 @@ class IngredientController {
             })
         })
         .then(ingredient => {
-            res.render('ingredients/editIngredient.ejs', {suppliers, ingredient})
+            res.render('ingredients/editIngredient.ejs', {suppliers, ingredient, notif:""})
         })
         .catch(err => res.send(err));
     }

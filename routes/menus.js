@@ -11,6 +11,7 @@ router.post('/:id/edit', MenuController.edit);
 router.get('/:id/delete', MenuController.delete);
 router.get('/:id/ingredients', MenuController.menuDetailForm);
 router.post('/:id/ingredients', MenuController.addIngredient);
+router.get('/:id/ingredients/download', MenuController.menuDetailDownload);
 router.get('/:menuId/ingredients/:id/delete', MenuController.deleteIngredient);
 
 module.exports = router;
