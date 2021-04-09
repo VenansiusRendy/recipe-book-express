@@ -9,7 +9,8 @@ class MenuController {
         .catch(err => res.send(err))
     }
     static addForm(req, res){
-        res.render('menus/addMenu.ejs', {notif:""})
+        const {notif} = req.query
+        res.render('menus/addMenu.ejs', {notif})
     }
     static add(req, res){
         const {name, category, uom, instructions} = req.body;
@@ -20,16 +21,17 @@ class MenuController {
             instructions
         })
         .then(result => res.redirect('/menus/?notif=Menu Successfully Added'))
-        .catch(err => res.send(err))
+        .catch(err => res.redirect(`?notif=${err.message}`))
     }
     static editForm(req, res){
         const {id} = req.params;
+        const {notif} = req.query;
         Menu.findOne({
             where: {
                 id: +id
             }
         })
-        .then(menu => res.render('menus/editMenu.ejs', {menu, notif:""}))
+        .then(menu => res.render('menus/editMenu.ejs', {menu, notif}))
         .catch(err => res.send(err));
     }
     static edit(req, res){
@@ -49,8 +51,8 @@ class MenuController {
             }
             
         )
-        .then(result => res.redirect('/menus'))
-        .catch(err => res.send(err));
+        .then(result => res.redirect('/menus/?notif=Menu Successfuly edited'))
+        .catch(err => res.redirect(`?notif=${err.message}`));
     }
     static delete(req, res){
         const {id} = req.params;
@@ -62,7 +64,7 @@ class MenuController {
             }
             
         )
-        .then(result => res.redirect('/menus'))
+        .then(result => res.redirect('/menus/?notif=Menu Successfuly deleted'))
         .catch(err => res.send(err));
     }
     static menuDetailForm(req, res){
@@ -101,7 +103,7 @@ class MenuController {
             })
             res.render('menus/menuDetail.ejs', {menu, ingredients, menu_ingredients, notif, thousands})
         })
-        .catch(err => res.redirect(`?=${err}`));
+        .catch(err => res.redirect(`?=${err.message}`));
     }
     static menuDetailDownload(req, res){
         const {id} = req.params;
@@ -123,10 +125,6 @@ class MenuController {
         .then(menuIngredients => {
             res.contentType("application/pdf");
             res.send(printToPdf(menuIngredients, menu))
-            // res.sendFile(`${fileName}`, (err) => {
-            //     res.send(err)
-            // })
-
         })
         .catch(err => res.send(err))
     }

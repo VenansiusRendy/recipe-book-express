@@ -3,15 +3,17 @@ const { Ingredient, Supplier } = require("../models");
 
 class IngredientController {
     static read(req, res){
+        const {notif} = req.query
         Ingredient.findAll({
             include: Supplier
         })
-        .then(ingredients => res.render('ingredients/ingredients.ejs', {ingredients, notif:"", thousands}))
+        .then(ingredients => res.render('ingredients/ingredients.ejs', {ingredients, notif, thousands}))
         .catch(err => res.send(err));
     }
     static addForm(req, res){
+        const {notif} = req.query;
         Supplier.findAll()
-        .then(suppliers => res.render('ingredients/addIngredient.ejs', {suppliers, notif:""}))
+        .then(suppliers => res.render('ingredients/addIngredient.ejs', {suppliers, notif}))
         .catch(err => res.send(err));
     }
     static add(req, res){
@@ -23,10 +25,11 @@ class IngredientController {
             supplier_id
         })
         .then(result => res.redirect('/ingredients'))
-        .catch(err => res.send(err))
+        .catch(err => res.redirect(`?notif=${err.message}`))
     }
     static editForm(req, res){
         const { id } = req.params; 
+        const {notif} = req.query;
         let suppliers;
         Supplier.findAll()
         .then(result => {
@@ -38,7 +41,7 @@ class IngredientController {
             })
         })
         .then(ingredient => {
-            res.render('ingredients/editIngredient.ejs', {suppliers, ingredient, notif:""})
+            res.render('ingredients/editIngredient.ejs', {suppliers, ingredient, notif})
         })
         .catch(err => res.send(err));
     }
@@ -58,8 +61,8 @@ class IngredientController {
                 }
             }
         )
-        .then(result => res.redirect('/ingredients'))
-        .catch(err => res.send(err))
+        .then(result => res.redirect('/ingredients/?notif=Ingredient successfully edited'))
+        .catch(err => res.redirect(`?notif=${err.message}`))
     }
     static delete(req, res){
         const { id } = req.params;
@@ -70,7 +73,7 @@ class IngredientController {
                 }
             }
         )
-        .then(result => res.redirect('/ingredients'))
+        .then(result => res.redirect('/ingredients/?notif=Ingredient successfully deleted'))
         .catch(err => res.send(err))
     }
 }

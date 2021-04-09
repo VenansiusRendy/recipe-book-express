@@ -22,7 +22,7 @@
                         <select class="form-select" aria-label="ingredient_id" name="ingredient_id">
                             <option selected>Select Ingredient</option>
                             <% ingredients.forEach(ingredient => { %>
-                                <option value="<%= ingredient.id %>"><%= ingredient.name.toUpperCase() %>(<%= ingredient.price %>/<%= ingredient.uom %>)</option>
+                                <option value="<%= ingredient.id %>"><%= ingredient.name.toUpperCase() %> (<%= ingredient.price %> / <%= ingredient.uom %>)</option>
                             <% }) %> 
                         </select>
                     </div>

@@ -14,11 +14,56 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Menu.init({
-    name: DataTypes.STRING,
-    category: DataTypes.STRING,
-    uom: DataTypes.STRING,
-    instructions: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty : {
+          args: true,
+          msg: 'Name cannot be empty'
+        }
+      }
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty : {
+          args: true,
+          msg: 'Category cannot be empty'
+        }
+      }
+    },
+    uom: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty : {
+          args: true,
+          msg: 'Uom cannot be empty'
+        }
+      }
+    },
+    instructions: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty : {
+          args: true,
+          msg: 'Instruction cannot be empty'
+        }
+      }
+    }
   }, {
+    hooks: {
+      beforeCreate(menu){
+        menu.name = menu.name.toUpperCase();
+        menu.category = menu.category.toUpperCase();
+        menu.uom = menu.uom.toUpperCase();
+        menu.instructions = menu.instructions.toUpperCase();
+        return menu;
+      }
+    },
     sequelize,
     modelName: 'Menu',
   });

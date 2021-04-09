@@ -16,10 +16,49 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Supplier.init({
-    name: DataTypes.STRING,
-    address: DataTypes.STRING,
-    phone_number: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty : {
+          args: true,
+          msg: 'Name cannot be empty'
+        }
+      }
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty : {
+          args: true,
+          msg: 'Address cannot be empty'
+        }
+      }
+    },
+    phone_number: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty : {
+          args: true,
+          msg: 'Phone Number cannot be empty'
+        }
+      }
+    }
   }, {
+    hooks: {
+      beforeCreate(supplier){
+        supplier.name = supplier.name.toUpperCase();
+        supplier.address = supplier.address.toUpperCase();
+        return supplier
+      },
+      beforeUpdate(supplier){
+        supplier.name = supplier.name.toUpperCase();
+        supplier.address = supplier.address.toUpperCase();
+        return supplier
+      }
+    },
     sequelize,
     modelName: 'Supplier',
   });
