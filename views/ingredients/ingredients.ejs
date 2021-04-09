@@ -17,7 +17,7 @@
             <tr>
                 <th scope="row"><%= i + 1 %></th>
                 <td><%= ingredient.name %></td>
-                <td><%= ingredient.price %></td>
+                <td><%= thousands(ingredient.price) %></td>
                 <td><%= ingredient.uom  %></td>
                 <td><%= ingredient.Supplier ? ingredient.Supplier.name : 'Belum Ada'%></td>
                 <td>

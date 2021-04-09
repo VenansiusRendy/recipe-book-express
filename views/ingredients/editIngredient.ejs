@@ -34,9 +34,9 @@
             >
             <div class="col-sm-10">
                 <select class="form-select" aria-label="Default select example" name="supplier_id">
-                    <option selected>Select Supplier</option>
+                    <option>Select Supplier</option>
                     <% suppliers.forEach(supplier => { %>
-                        <option value="<%= supplier.id%>" <%= +ingredient.supplier_id === +supplier.id ? "checked" : null %>><%= supplier.name %></option>
+                        <option value="<%= supplier.id%>" <%= +ingredient.supplier_id === +supplier.id ? "selected" : null %>><%= supplier.name %></option>
                     <% }) %>
                 </select>
             </div>
