@@ -24,13 +24,26 @@ module.exports = (sequelize, DataTypes) => {
   Menu_Ingredient.init({
     menu_id: DataTypes.INTEGER,
     ingredient_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      validate: {
+        notDefault(value){
+          if(value === "Select Ingredient"){
+            throw "Must select ingredient"
+          }
+        }
+      }
     },
-    qty: DataTypes.DECIMAL
+    qty: {
+      type: DataTypes.DECIMAL,
+      validate: {
+        notZero(value){
+          if(value === 0){
+            throw "Must put qty"
+          }
+        }
+      }
+    }
   }, {
-    hooks: {
-
-    },
     sequelize,
     modelName: 'Menu_Ingredient',
   });
